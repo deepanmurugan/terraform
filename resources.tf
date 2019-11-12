@@ -183,7 +183,7 @@ resource "aws_security_group" "alb_sg" {
 */
 resource "aws_key_pair" "deployer" {
 	key_name   = "nvirginia"
-	public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCWrWDN4iu6bmJocp/c5x6bvwxgle25Qhq5ebLPPu5x/PCpoAJp6OLtDspt9/orTg4MRzG0TwcXMzOkw4TY3dDHxx7z3p3vyd6JMQ1+Vgn9xL29FzHLxafXdg8HLgBwEbJFtJ/aoVYhl9pEK0OvczX4ph2wzyp2idQldCOyNVm11uLePNsBAKQ4af0Y89R7auAhdnsFAED9yMVXh68j7cTPsTcqnyjzmmJuUpNMy0RaWOMZ4ZY5mwCskHHUJ+9Vq4IbCuzkOXLFei5nsd8VXbnVGeysG7mYujIaLquZ+khgurTEz/N0V0cI0q82Kcj0j/hCc+uZJhLFAfYB/iNkTz7h"
+	public_key = "ssh-rsa c5x6bvwxgle25Qhq5ebLPPu5x/PCpoAJp6OLtDspt9/orTg4MRzG0TwcXMzOkw4TY3dDHxx7z3p3vyd6JMQ1+Vgn9xL29FzHLxafXdg8HLgBwEbJFtJ/aoVYhl9pEK0OvczX4ph2wzyp2idQldCOyNVm11uLePNsBAKQ4af0Y89R7auAhdnsFAED9yMVXh68j7cTPsTcqnyjzmmJuUpNMy0RaWOMZ4ZY5mwCskHHUJ+9Vq4IbCuzkOXLFei5nsd8VXbnVGeysG7mYujIaLquZ+khgurTEz/N0V0cI0q82Kcj0j/hCc+uZJhLFAfYB/iNkTz7h"
 }
 
 /* User data script file incase if you want to use userdata while launching ec2-instances
