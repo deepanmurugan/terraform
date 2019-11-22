@@ -22,3 +22,5 @@ Files used:
 3) userdata.sh -> shell script for installing webserver
 4) resources.tf -> where all the necessary resources are defined
 
+# Architecture
+![](architecture.jpg)
