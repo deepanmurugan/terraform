@@ -17,8 +17,8 @@ List of AWS Infrasturcture created in AWS.
 12) ALB (Application Load Balancer)
 
 Files used:
-connection.tf -> provider details are defined
-variable.tf -> where all the necessary variables are defined
-userdata.sh -> shell script for installing webserver
-resources.tf -> where all the necessary resources are defined
+1) connection.tf -> provider details are defined
+2) variable.tf -> where all the necessary variables are defined
+3) userdata.sh -> shell script for installing webserver
+4) resources.tf -> where all the necessary resources are defined
 
