@@ -45,7 +45,7 @@ resource "aws_route" "requester_route" {
 }
 
 
-/* Add VPC Peering route entry to the route tables of requester subnet */
+/* Add VPC Peering route entry to the route tables of accepter subnet */
 resource "aws_route" "accepter_route" {
   count                     = "${length(data.aws_route_table.accepter_rt.*.id)}"
   route_table_id            = "${data.aws_route_table.accepter_rt.*.id[count.index]}"
