@@ -1,2 +1,2 @@
 # Architecture
-![]('cw_to_lambda copy.jpg')
+![]('cw_to_lambda_architecture.jpg')
