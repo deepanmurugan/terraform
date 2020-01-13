@@ -21,15 +21,15 @@ This terraform script is used to spin ECS Container Instances and run nginx cont
 11. ECS Service - which makes sure necessary tasks are running properly
 
 ## Features
-ALB is only placed in public subnet in multi-az mode (us-east-1a and us-east-1b) which provides HA and Security Features.
-ECS Instances are placed in private subnet and instance security group is modified like only traffic from ALB is allowed to instances which provides added security to the instances.
-Autoscaling is placed in the ECS container instances which spins up new machine when there is high load in the application.
+* ALB is only placed in public subnet in multi-az mode (us-east-1a and us-east-1b) which provides HA and Security Features.
+* ECS Instances are placed in private subnet and instance security group is modified like only traffic from ALB is allowed to instances which provides added security to the instances.
+* Autoscaling is placed in the ECS container instances which spins up new machine when there is high load in the application.
 
 ## Files Used
-network.tf        - All network related infra like VPC, Subnets, Route tables, EIP and NAT Gateway.
-iam.tf            - IAM Roles and policies.
-alb.tf            - Application load balancer and Auto scaling groups.
-security_group.tf - security group for Instances and ALB.
-ecs.tf            - ECS cluster, task definition and ECS service details.
-variables.tf      - variables used in the terraform files.
-provider.tf       - AWS and your access key and secret key.
+1. network.tf        - All network related infra like VPC, Subnets, Route tables, EIP and NAT Gateway.
+2. iam.tf            - IAM Roles and policies.
+3. alb.tf            - Application load balancer and Auto scaling groups.
+4. security_group.tf - security group for Instances and ALB.
+5. ecs.tf            - ECS cluster, task definition and ECS service details.
+6. variables.tf      - variables used in the terraform files.
+7. provider.tf       - AWS and your access key and secret key.
