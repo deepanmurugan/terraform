@@ -26,6 +26,7 @@ resource "aws_instance" "web_instances" {
     volume_size = var.volume_size
     volume_type = var.volume_type
   }
+  #user_data = file("${path.module}/install_apache.sh")
   user_data = file("${path.module}/install_apache.sh")
   tags = merge(
     var.default_tags,
