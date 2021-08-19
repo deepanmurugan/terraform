@@ -1,6 +1,6 @@
 resource "aws_iam_role_policy" "lambda_policy" {
   name = "lambda_to_cw"
-  role = "${aws_iam_role.iam_role.id}" 
+  role = aws_iam_role.iam_role.id
 
   policy = <<EOF
 {
@@ -46,14 +46,14 @@ EOF
 }
 
 resource "aws_lambda_function" "test_lambda" {
-  filename      = "cloudwatch_dashboard.zip"
-  function_name = "cloudwatch_dashboard"
-  role          = "${aws_iam_role.iam_role.arn}"
-  handler       = "lambda_function.cw_lambda"
-  source_code_hash = "${filebase64sha256("cloudwatch_dashboard.zip")}"
-  runtime = "${var.runtime}"
-  timeout = "${var.timeout}"
-  memory_size = "${var.memory}"
+  filename         = "cloudwatch_dashboard.zip"
+  function_name    = "cloudwatch_dashboard"
+  role             = aws_iam_role.iam_role.arn
+  handler          = "lambda_function.cw_lambda"
+  source_code_hash = filebase64sha256("cloudwatch_dashboard.zip")
+  runtime          = var.runtime
+  timeout          = var.timeout
+  memory_size      = var.memory
 }
 
 resource "aws_cloudwatch_event_rule" "cw_rule" {
@@ -80,15 +80,15 @@ PATTERN
 }
 
 resource "aws_cloudwatch_event_target" "cw_target" {
-  rule      = "${aws_cloudwatch_event_rule.cw_rule.name}"
+  rule      = aws_cloudwatch_event_rule.cw_rule.name
   target_id = "test_lambda"
-  arn       = "${aws_lambda_function.test_lambda.arn}"
+  arn       = aws_lambda_function.test_lambda.arn
 }
 
 resource "aws_lambda_permission" "cwrule_permission" {
-  statement_id = "allow_lambda_cwrule"
-  action = "lambda:InvokeFunction"
-  function_name = "${aws_lambda_function.test_lambda.function_name}"
-  principal = "events.amazonaws.com"
-  source_arn = "${aws_cloudwatch_event_rule.cw_rule.arn}"
+  statement_id  = "allow_lambda_cwrule"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.test_lambda.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.cw_rule.arn
 }

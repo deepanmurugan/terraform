@@ -1,11 +1,11 @@
 variable "default_tags" {
-  type = map
-    default = {
-      Environment = "Stage"
-      AppName = "WebApp"
-      Team = "SQA"
-      ManagedBy = "Terraform"
-    }
+  type = map(any)
+  default = {
+    Environment = "Stage"
+    AppName     = "WebApp"
+    Team        = "SQA"
+    ManagedBy   = "Terraform"
+  }
 }
 
 variable "env" {
@@ -19,12 +19,12 @@ variable "vpc_cidr" {
 }
 
 variable "public_subnets_cidr" {
-  type        = list
+  type        = list(any)
   description = "The CIDR block for the public subnet"
 }
 
 variable "private_subnets_cidr" {
-  type        = list
+  type        = list(any)
   description = "The CIDR block for the private subnet"
 }
 
@@ -33,18 +33,18 @@ variable "vpcid" {
 }
 
 variable "public_subnet" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "availability_zones" {
- type = list 
+  type = list(any)
 }
 
 variable "app_name" {
 }
 
-variable "internal" { 
+variable "internal" {
 }
 
 variable "lb_type" {
@@ -52,7 +52,7 @@ variable "lb_type" {
 }
 
 variable "security_groups" {
-  type = list
+  type    = list(any)
   default = []
 }
 
@@ -77,15 +77,15 @@ variable "to_port" {
 }
 
 variable "from_protocol" {
-  
+
 }
 
 variable "to_protocol" {
-  
+
 }
 
 variable "description" {
-  
+
 }
 
 variable "custom_ami" {
@@ -101,7 +101,7 @@ variable "instance_type" {
 }
 
 variable "disable_api_termination" {
-  
+
 }
 
 variable "tenancy" {
@@ -117,7 +117,7 @@ variable "volume_type" {
 }
 
 variable "private_subnet_id" {
-  type = list
+  type    = list(any)
   default = []
 }
 
@@ -130,31 +130,31 @@ variable "lb_security_group" {
 }
 
 variable "target_instance_id" {
-  type = list
+  type    = list(any)
   default = []
 }
 
 variable "private_subnet_count" {
-  type = number
+  type    = number
   default = 6
 }
 
 variable "public_subnet_count" {
-  type = number
+  type    = number
   default = 6
 }
 
 variable "private_subnet_id_list" {
-  type = list
+  type    = list(any)
   default = []
 }
 
 variable "public_subnet_id_list" {
-  type = list
+  type    = list(any)
   default = []
 }
 
 variable "public_lb_subnet_id" {
-  type = list
+  type    = list(any)
   default = []
 }

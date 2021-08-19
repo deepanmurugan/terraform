@@ -1,10 +1,10 @@
 variable "default_tags" {
-  type = map
+  type = map(any)
   default = {
     Environment = "Stage"
-    AppName = "WebApp"
-    Team = "SQA"
-    ManagedBy = "Terraform"
+    AppName     = "WebApp"
+    Team        = "SQA"
+    ManagedBy   = "Terraform"
   }
 }
 
@@ -13,21 +13,21 @@ variable "vpc_id" {
 }
 
 variable "availability_zones" {
- type = list
- default = ["us-east-2a", "us-east-2b"]
+  type    = list(any)
+  default = ["us-east-2a", "us-east-2b"]
 }
 
 variable "private_subnet_id_list" {
-  type = list
+  type    = list(any)
   default = []
 }
 
 variable "public_subnet_id_list" {
-  type = list
+  type    = list(any)
   default = []
 }
 
 variable "public_lb_subnet_id" {
-  type = list
+  type    = list(any)
   default = []
 }

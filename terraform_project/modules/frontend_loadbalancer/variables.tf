@@ -1,10 +1,10 @@
 variable "default_tags" {
-  type = map
+  type = map(any)
   default = {
     Environment = "Stage"
-    AppName = "WebApp"
-    Team = "SQA"
-    ManagedBy = "Terraform"
+    AppName     = "WebApp"
+    Team        = "SQA"
+    ManagedBy   = "Terraform"
   }
 }
 
@@ -13,11 +13,11 @@ variable "vpc_id" {
 }
 
 variable "public_subnet_id" {
-  type = list
+  type    = list(any)
   default = []
 }
 
-variable "internal" { 
+variable "internal" {
 }
 
 variable "lb_type" {
@@ -25,7 +25,7 @@ variable "lb_type" {
 }
 
 variable "security_groups" {
-  type = list
+  type    = list(any)
   default = []
 }
 
@@ -46,21 +46,21 @@ variable "from_port" {
 }
 
 variable "to_port" {
-  
+
 }
 
 variable "from_protocol" {
-  
+
 }
 
 variable "to_protocol" {
-  
+
 }
 
 variable "description" {
   default = "Allow Internet traffic"
 }
 variable "target_instance_id" {
-  type = list
+  type    = list(any)
   default = []
 }

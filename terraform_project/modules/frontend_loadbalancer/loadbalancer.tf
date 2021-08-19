@@ -1,11 +1,11 @@
 resource "aws_lb" "load_balancer" {
-  name               = "${lookup(var.default_tags, "AppName", "Provide Proper Key")}"
-  internal           = var.internal
-  load_balancer_type = var.lb_type
-  security_groups    = [aws_security_group.security_group_main.id]
-  subnets            = var.public_subnet_id
+  name                             = lookup(var.default_tags, "AppName", "Provide Proper Key")
+  internal                         = var.internal
+  load_balancer_type               = var.lb_type
+  security_groups                  = [aws_security_group.security_group_main.id]
+  subnets                          = var.public_subnet_id
   enable_cross_zone_load_balancing = var.enable_cross_zone_load_balancing
-  enable_deletion_protection = var.delete_protection
+  enable_deletion_protection       = var.delete_protection
 
   tags = merge(
     var.default_tags,
@@ -16,7 +16,7 @@ resource "aws_lb" "load_balancer" {
 }
 
 resource "aws_lb_listener" "frontend_http_to_https_redirect" {
-  count = var.enable_http_to_https_redirect ? 1 : 0
+  count             = var.enable_http_to_https_redirect ? 1 : 0
   load_balancer_arn = aws_lb.load_balancer.arn
   port              = var.from_port
   protocol          = var.from_protocol
@@ -33,7 +33,7 @@ resource "aws_lb_listener" "frontend_http_to_https_redirect" {
 }
 
 resource "aws_lb_listener" "front_end" {
-  count = var.enable_http_to_https_redirect ? 0 : 1
+  count             = var.enable_http_to_https_redirect ? 0 : 1
   load_balancer_arn = aws_lb.load_balancer.arn
   port              = var.to_port
   protocol          = var.to_protocol
@@ -43,29 +43,29 @@ resource "aws_lb_listener" "front_end" {
     target_group_arn = aws_lb_target_group.front_end_tg[0].arn
   }
   tags = merge(
-      var.default_tags,
-      {
-        Name = "${lookup(var.default_tags, "AppName", "Provide Proper Key")}-Listener"
-      },
-    )
+    var.default_tags,
+    {
+      Name = "${lookup(var.default_tags, "AppName", "Provide Proper Key")}-Listener"
+    },
+  )
 }
 
 resource "aws_lb_target_group" "front_end_tg" {
-  count = var.enable_http_to_https_redirect ? 0 : 1
+  count    = var.enable_http_to_https_redirect ? 0 : 1
   name     = "${lookup(var.default_tags, "AppName", "Provide Proper Key")}-tg"
   port     = var.to_port
   protocol = var.to_protocol
   vpc_id   = var.vpc_id
   tags = merge(
-      var.default_tags,
-      {
-        Name = "${lookup(var.default_tags, "AppName", "Provide Proper Key")}-TargetGroup"
-      },
-    )
+    var.default_tags,
+    {
+      Name = "${lookup(var.default_tags, "AppName", "Provide Proper Key")}-TargetGroup"
+    },
+  )
 }
 
 resource "aws_lb_target_group_attachment" "front_end_tg_attachment" {
-  count = length(var.target_instance_id)
+  count            = length(var.target_instance_id)
   target_group_arn = aws_lb_target_group.front_end_tg[0].arn
   target_id        = element(var.target_instance_id, count.index)
   port             = var.to_port
@@ -77,29 +77,29 @@ resource "aws_security_group" "security_group_main" {
   vpc_id      = var.vpc_id
 
   tags = merge(
-      var.default_tags,
-      {
-        Name = "${lookup(var.default_tags, "AppName", "Provide Proper Key")}-sg"
-      },
-    )
+    var.default_tags,
+    {
+      Name = "${lookup(var.default_tags, "AppName", "Provide Proper Key")}-sg"
+    },
+  )
 }
 
 resource "aws_security_group_rule" "allow_ingress_port_from_port" {
-  count       = var.lb_type == "application" && var.enable_http_to_https_redirect ? 1 : 0
-  type        = "ingress"
-  from_port   = var.from_port
-  to_port     = var.from_port
-  protocol    = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
+  count             = var.lb_type == "application" && var.enable_http_to_https_redirect ? 1 : 0
+  type              = "ingress"
+  from_port         = var.from_port
+  to_port           = var.from_port
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.security_group_main.id
 }
 
 resource "aws_security_group_rule" "allow_ingress_port_to_port" {
-  type        = "ingress"
-  from_port   = var.to_port
-  to_port     = var.to_port
-  protocol    = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
+  type              = "ingress"
+  from_port         = var.to_port
+  to_port           = var.to_port
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.security_group_main.id
 }
 

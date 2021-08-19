@@ -1,5 +1,5 @@
 data "aws_ami" "ubuntu" {
-  count = var.custom_ami ? 0 : 1
+  count       = var.custom_ami ? 0 : 1
   most_recent = true
   filter {
     name   = "name"
@@ -13,20 +13,20 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "web_instances" {
-  count = length(var.private_subnet_id)
-  ami           = var.custom_ami ? var.custom_ami_id : data.aws_ami.ubuntu[0].id
-  instance_type = var.instance_type
+  count                   = length(var.private_subnet_id)
+  ami                     = var.custom_ami ? var.custom_ami_id : data.aws_ami.ubuntu[0].id
+  instance_type           = var.instance_type
   disable_api_termination = var.disable_api_termination
-  tenancy = var.tenancy
-  placement_group = aws_placement_group.web_placement_group.id
-  subnet_id = element(var.private_subnet_id, count.index)
-  key_name = aws_key_pair.aws_key.id
-  vpc_security_group_ids = [aws_security_group.security_group_web.id]
+  tenancy                 = var.tenancy
+  placement_group         = aws_placement_group.web_placement_group.id
+  subnet_id               = element(var.private_subnet_id, count.index)
+  key_name                = aws_key_pair.aws_key.id
+  vpc_security_group_ids  = [aws_security_group.security_group_web.id]
   root_block_device {
     volume_size = var.volume_size
     volume_type = var.volume_type
   }
-  user_data = "${file("${path.module}/install_apache.sh")}"
+  user_data = file("${path.module}/install_apache.sh")
   tags = merge(
     var.default_tags,
     {
@@ -71,12 +71,12 @@ resource "aws_security_group" "security_group_web" {
 }
 
 resource "aws_security_group_rule" "allow_from_lb" {
-  type        = "ingress"
-  from_port   = var.to_port
-  to_port     = var.to_port
-  protocol    = "tcp"
+  type                     = "ingress"
+  from_port                = var.to_port
+  to_port                  = var.to_port
+  protocol                 = "tcp"
   source_security_group_id = var.lb_security_group
-  security_group_id = aws_security_group.security_group_web.id
+  security_group_id        = aws_security_group.security_group_web.id
 }
 resource "aws_security_group_rule" "egress" {
   security_group_id = aws_security_group.security_group_web.id

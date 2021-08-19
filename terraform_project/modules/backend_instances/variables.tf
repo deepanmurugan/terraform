@@ -1,10 +1,10 @@
 variable "default_tags" {
-  type = map
+  type = map(any)
   default = {
     Environment = "Stage"
-    AppName = "WebApp"
-    Team = "SQA"
-    ManagedBy = "Terraform"
+    AppName     = "WebApp"
+    Team        = "SQA"
+    ManagedBy   = "Terraform"
   }
 }
 
@@ -21,7 +21,7 @@ variable "instance_type" {
 }
 
 variable "disable_api_termination" {
-  type = bool
+  type    = bool
   default = false
 }
 
@@ -38,7 +38,7 @@ variable "volume_type" {
 }
 
 variable "private_subnet_id" {
-  type = list
+  type    = list(any)
   default = []
 }
 
@@ -51,7 +51,7 @@ variable "vpc_id" {
 }
 
 variable "vpc_security_group_ids" {
-  type = list
+  type    = list(any)
   default = []
 }
 
