@@ -1,9 +1,9 @@
 variable "ecs_cluster" {
-  default = "webapp"
+  default     = "webapp"
   description = "Desired number of instances in the cluster"
 }
 
-data aws_availability_zones aws_az {
+data "aws_availability_zones" "aws_az" {
 }
 
 variable "vpc_cidr" {

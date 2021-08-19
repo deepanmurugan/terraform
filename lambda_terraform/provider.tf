@@ -1,3 +1,3 @@
 provider "aws" {
-  region     = "${terraform.workspace}" 
+  region = terraform.workspace
 }
